@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/loginstyles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script>
+        $(function () {
+            $('input, select').on('focus', function () {
+                $(this).parent().find('.input-group-text').css('border-color', '#80bdff');
+            });
+            $('input, select').on('blur', function () {
+                $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
+            });
+        });
+    </script>
+</body>
+</html>

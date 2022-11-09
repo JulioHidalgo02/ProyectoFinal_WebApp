@@ -1,0 +1,55 @@
+﻿@model ProyectoFinal_WebApp.Entities.LoginObj
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewData["Title"] = "Login";
+}
+
+
+<div class="container">
+    <div class="row py-5 mt-4 align-items-center">
+        <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+           
+            <h1>Iniciar Sesión</h1>
+            <p class="font-italic text-muted mb-0">Para iniciar Sesión, ingrese el correo y la contraseña asociada al Sistema</p>
+
+        </div>
+
+        <!-- Registeration Form -->
+        <div class="col-md-7 col-lg-6 ml-auto">
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+            {
+               
+                    <div class="input-group col-lg-12 mb-4">
+                        @Html.TextBoxFor(Model => Model.Correo, new {@class = "form-control bg-white", required="required", placeholder="Corrreo Electrónico"})            
+                    </div>
+
+                    <div class="input-group col-lg-12 mb-4">
+                        @Html.PasswordFor(Model => Model.Contrasenia, new {@class = "form-control bg-white", required="required", placeholder="Contraseña"}) 
+                    </div>
+
+                    <div class="form-group col-lg-12 mx-auto mb-0">
+                    <input type="submit" value="Iniciar Sesión" class="btn btn-primary btn-block py-2 font-weight-bold"/>
+                    </div>
+            }
+                    <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                        <div class="border-bottom w-100 ml-5"></div>
+                        <span class="px-2 small text-muted font-weight-bold text-muted"></span>
+                        <span class="px-2 small text-muted font-weight-bold text-muted"></span>
+                        <div class="border-bottom w-100 mr-5"></div>
+                    </div>
+                    
+                    <div class="form-group col-lg-12 mx-auto">
+                        <a href="@Url.Action("Registrarse","Login")" class="btn btn-primary btn-block py-2 btn-facebook">
+                            <i class="fa fa-facebook-f mr-2"></i>
+                            <span class="font-weight-bold">Crear Cuenta</span>
+                        </a>
+                        <br><br />
+                    <div class="text-center w-100">
+                            <p class="text-muted font-weight-bold"> <a href="#" class="text-primary ml-2">¿Olvidó su Contraseña?</a></p>
+                    </div>
+
+                </div>
+            
+        </div>
+    </div>
+</div>
