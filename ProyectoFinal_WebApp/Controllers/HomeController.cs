@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProyectoFinal_WebApp.Models;
 using System.Diagnostics;
 
 namespace ProyectoFinal_WebApp.Controllers
