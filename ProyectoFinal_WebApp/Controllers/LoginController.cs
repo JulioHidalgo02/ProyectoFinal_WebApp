@@ -16,6 +16,7 @@ namespace ProyectoFinal_WebApp.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            HttpContext.Session.Clear();
             return View();
         }
 
@@ -26,8 +27,11 @@ namespace ProyectoFinal_WebApp.Controllers
 
             if(respuesta != null)
             {
-                
-              return RedirectToAction("Index", "Home");
+
+                HttpContext.Session.SetString("RolUsuario", respuesta.IdRol.ToString());
+                HttpContext.Session.SetString("Cedula", respuesta.Cedula);
+                HttpContext.Session.SetString("NombreUsuario", respuesta.Nombre + " " + respuesta.PApellido);
+                return RedirectToAction("Index", "Home");
                 
 
             }
@@ -44,9 +48,46 @@ namespace ProyectoFinal_WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult HacerRegistro()
+        public IActionResult Registrarse(LoginObj2 usuario)
+        {
+            var respuesta = model.RegistrarUsuario(usuario, _configuration);
+            if(respuesta == 1)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                return View();
+            }
+            
+        }
+
+        [HttpGet]
+        public IActionResult OlvidoContrasena()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult OlvidoContrasena(LoginObj2 usuario)
+        {
+            var respuesta = model.OlvidoContrasenia(usuario, _configuration);
+            if (respuesta == 1)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+
+        [HttpGet]
+        public IActionResult CerrarSesion()
+        {
+
+            return RedirectToAction("Login", "Login");
         }
     }
 }

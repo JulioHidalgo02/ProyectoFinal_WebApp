@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var nombreUsuario = Context.Session.GetString("NombreUsuario");
+    var rol = Context.Session.GetString("RolUsuario");
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -49,15 +53,18 @@
                         <nav class="site-navigation text-right text-md-center" role="navigation">
                             <ul class="site-menu js-clone-nav d-none d-lg-block">
                                 <li class="active"><a href="@Url.Action("Index","Home")">Inicio</a></li>
-                                <li><a href="index.html">Inventario</a></li>
+                                @if(int.Parse(rol) == 1){
+                                    <li><a href="index.html">Inventario</a></li>
+                                }
+                                
                                 <li><a href="@Url.Action("MostrarProductos","Productos")">Tienda</a></li>
                                 <li><a href="@Url.Action("Acercade","Home")" )">Acerca de</a></li>
                                 <li><a href="contact.html">Contacto</a></li>
                                 <li class="has-children">
-                                    <a href="#">Perfil</a>
+                                    <a href="#">@nombreUsuario</a>
                                     <ul class="dropdown">
                                         <li><a href="#">Perfil</a></li>
-                                        <li><a href="#">Cerrar Sesión</a></li>
+                                        <li><a href="@Url.Action("CerrarSesion","Login")">Cerrar Sesión</a></li>
                                     </ul>
                                 </li>
                             </ul>

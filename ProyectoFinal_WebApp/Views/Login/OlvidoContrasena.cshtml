@@ -1,0 +1,34 @@
+﻿@model ProyectoFinal_WebApp.Entities.LoginObj
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewData["Title"] = "OlvidoContrasena";
+}
+
+<div class="container">
+    <div class="row py-5 mt-4 align-items-center">
+        <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+
+            <h1>Cambio de Contraseña</h1>
+            <p class="font-italic text-muted mb-0">Por favor digite el correo asociado al sistema para cambiar la contraseña</p>
+
+        </div>
+
+        <div class="col-md-7 col-lg-6 ml-auto">
+            @using (Html.BeginForm("OlvidoContrasena", "Login", FormMethod.Post))
+            {
+
+                <div class="input-group col-lg-12 mb-4">
+                    @Html.TextBoxFor(Model => Model.Correo, new {@class = "form-control bg-white", required="required", placeholder="Corrreo Electrónico"})
+                </div>
+
+                <div class="form-group col-lg-12 mx-auto mb-0">
+                    <input type="submit" value="Cambiar Contraseña" class="btn btn-primary btn-block py-2 font-weight-bold" />
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>
+
+
