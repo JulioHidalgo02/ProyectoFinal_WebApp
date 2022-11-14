@@ -18,6 +18,11 @@ namespace ProyectoFinal_WebApp.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Contacto()
+        {
+            return View();
+        }
 
     }
 }
