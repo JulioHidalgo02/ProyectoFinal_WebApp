@@ -1,8 +1,13 @@
+using ProyectoFinal_WebApp.Helper;
+using ProyectoFinal_WebApp.Providers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
+builder.Services.AddSingleton<PathProvider>();
+builder.Services.AddSingleton<HelperUploadFiles>();
 
 var app = builder.Build();
 
@@ -28,3 +33,5 @@ app.MapControllerRoute(
     pattern: "{controller=Login}/{action=Login}/{id?}");
 
 app.Run();
+
+

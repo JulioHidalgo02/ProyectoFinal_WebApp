@@ -2,20 +2,32 @@
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Common;
 using ProyectoFinal_WebApp.Entities;
+using ProyectoFinal_WebApp.Helper;
 using ProyectoFinal_WebApp.Models;
+using ProyectoFinal_WebApp.Providers;
 using System.Configuration;
 using System.IO;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
+
 
 namespace ProyectoFinal_WebApp.Controllers
 {
     public class ProductosController : Controller
     {
         private readonly IConfiguration _configuration;
+        private HelperUploadFiles helperUpload;
         ProductosModel productosM = new ProductosModel();
 
-        public ProductosController(IConfiguration configuration)
+        public ProductosController(HelperUploadFiles helperUpload,IConfiguration configuration)
         {
             _configuration = configuration;
+            this.helperUpload = helperUpload;
         }
 
         [HttpGet]
@@ -39,12 +51,24 @@ namespace ProyectoFinal_WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult AgregarProducto(ProductoObj producto)
+        public async Task<IActionResult> AgregarProducto(IFormFile imagen, ProductoObj producto)
         {
-            string path = Path.GetFileName(producto.URL);
-            
+            string nombreImagen = imagen.FileName;
+            string path = await this.helperUpload.UploadFilesAsync(imagen, nombreImagen, Folders.Images);
+            path = "/images/" + nombreImagen;
+            producto.URL = path;
 
-            return RedirectToAction("AgregarProducto", "Productos");
+            var resultado = productosM.AgregarProducto(producto, _configuration);
+
+            if (resultado == 1)
+            {
+                return RedirectToAction("AdminProductos", "Productos");
+            }
+            else
+            {
+                return RedirectToAction("AgregarProducto", "Productos");
+            }
+            
            
         }
 

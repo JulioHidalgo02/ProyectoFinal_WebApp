@@ -36,6 +36,7 @@
                                     @Html.DisplayNameFor(model => model.DescripcionProducto)
                                 </th>
                                 <th>
+                                
                                     @Html.DisplayNameFor(model => model.URLimagen)
                                 </th>
                                 <th>Acciones</th>
@@ -61,7 +62,8 @@
                                         @Html.DisplayFor(modelItem => item.DescripcionProducto)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.URLimagen)
+
+                                    <img src="@item.URLimagen" width="80">
                                     </td>
                                     <td>
                                     @Html.ActionLink("Editar", "EditarProducto", "Productos", new { id=item.IdInventario }, new{ @class="btn btn-primary" } )
