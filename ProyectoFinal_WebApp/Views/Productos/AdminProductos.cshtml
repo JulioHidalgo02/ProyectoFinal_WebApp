@@ -1,0 +1,93 @@
+﻿@model IEnumerable<ProyectoFinal_WebApp.Entities.ProductoObj2>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "AdminProductos";
+}
+
+
+
+    <div class="form-horizontal">
+        <div class="card-body">
+
+            <div class="row">
+            
+            <div class="col-1"></div>
+                <div class="col-10">
+                <a href="@Url.Action("AgregarProducto","Productos")" class="btn btn-primary">Agregar Producto</a>
+                <br />
+                <br />
+                <table class="table table-dark table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.IdInventario)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.NombreProducto)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Precio)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CantDisponible)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DescripcionProducto)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.URLimagen)
+                                </th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdInventario)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NombreProducto)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Precio)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CantDisponible)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DescripcionProducto)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.URLimagen)
+                                    </td>
+                                    <td>
+                                    @Html.ActionLink("Editar", "EditarProducto", "Productos", new { id=item.IdInventario }, new{ @class="btn btn-primary" } )
+                                    <br>
+                                    <br>
+                                    @using (Html.BeginForm("EliminarProducto", "Productos", new { id = item.IdInventario }))
+                                    {
+                                        <input type="submit" value="Eliminar" class="btn btn-danger" />
+                                    }
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+            <div class="col-1"></div>
+            </div>
+
+        </div>
+
+                
+    </div>
+
+
+
+

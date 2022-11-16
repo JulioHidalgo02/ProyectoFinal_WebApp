@@ -1,0 +1,62 @@
+﻿@model ProyectoFinal_WebApp.Entities.ProductoObj2
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "EditarProducto";
+}
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="h3 mb-5 text-black">Editar Producto</h2>
+            </div>
+            <div class="col-md-12">
+
+                @using (Html.BeginForm("EditarProducto", "Productos", FormMethod.Post))
+                {
+                    @Html.HiddenFor(Model => Model.IdInventario, new { required="required"})
+                    <div class="p-3 p-lg-5 border">
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="c_fname" class="text-black">Nombre del Producto <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(Model => Model.NombreProducto, new {@class = "form-control bg-white", required="required"})
+
+                            </div>
+                            <div class="col-md-6">
+                                <label for="c_lname" class="text-black">Precio<span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(Model => Model.Precio, new {@class = "form-control bg-white", required="required", type="number"})
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label for="c_email" class="text-black">Cantidad <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(Model => Model.CantDisponible, new {@class = "form-control bg-white", required="required", type="number"})
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label for="c_subject" class="text-black">Descripción del Producto </label>
+                                @Html.TextBoxFor(Model => Model.DescripcionProducto, new {@class = "form-control bg-white", required="required"})
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label for="c_message" class="text-black">Imagen del Producto </label>
+                                @Html.TextBoxFor(Model => Model.URLimagen, new {/*@type = "file" ,*/ @class = "form-control bg-white", required="required"})
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-12">
+                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Editar Producto">
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
