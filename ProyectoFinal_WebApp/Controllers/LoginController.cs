@@ -84,6 +84,27 @@ namespace ProyectoFinal_WebApp.Controllers
         }
 
         [HttpGet]
+        public IActionResult Contacto()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Contacto(Contacto contacto)
+        {
+            var respuesta = model.RegistrarContacto(contacto, _configuration);
+            if (respuesta == 1)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+
+        [HttpGet]
         public IActionResult CerrarSesion()
         {
 

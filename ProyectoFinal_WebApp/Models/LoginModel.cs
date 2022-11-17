@@ -1,4 +1,6 @@
 ﻿using ProyectoFinal_WebApp.Entities;
+using System.Configuration;
+using System.Diagnostics.Contracts;
 
 namespace ProyectoFinal_WebApp.Models
 {
@@ -90,5 +92,25 @@ namespace ProyectoFinal_WebApp.Models
                 return -1;
             }
         }
+
+        public int RegistrarContacto(Contacto obj, IConfiguration stringConnection)
+        {
+            string ruta = stringConnection.GetSection("ConnectionStrings:UrlApi").Value;
+            using (var client = new HttpClient())
+            {
+                JsonContent body = JsonContent.Create(obj);
+
+                string metodo = "Login/CrearContacto";
+                HttpResponseMessage respuesta = client.PostAsync(ruta + metodo, body).Result;
+
+                if (respuesta.IsSuccessStatusCode && respuesta.Content != null)
+                {
+                    return 1;
+                }
+
+                return -1;
+            }
+        }
+
     }
 }
