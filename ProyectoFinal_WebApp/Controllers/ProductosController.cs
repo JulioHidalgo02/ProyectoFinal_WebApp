@@ -33,7 +33,8 @@ namespace ProyectoFinal_WebApp.Controllers
         [HttpGet]
         public IActionResult MostrarProductos()
         {
-            return View();
+            var resultado = productosM.MostrarProductos(_configuration);
+            return View(resultado);
         }
 
         [HttpGet]
@@ -123,9 +124,12 @@ namespace ProyectoFinal_WebApp.Controllers
 
 
         [HttpGet]
-        public IActionResult MostrarProductoIndividual()
+        public IActionResult MostrarProductoIndividual(int id)
         {
-            return View();
+            ProductoObj2 producto = new ProductoObj2();
+            producto.IdInventario = id;
+            var resultado = productosM.MostrarProducto(producto, _configuration);
+            return View(resultado);
         }
 
     }

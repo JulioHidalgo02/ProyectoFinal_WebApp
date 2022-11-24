@@ -17,7 +17,7 @@
                 <a href="@Url.Action("AgregarProducto","Productos")" class="btn btn-primary">Agregar Producto</a>
                 <br />
                 <br />
-                <table class="table table-dark table-striped table-hover">
+                <table class="table table-striped table-hover table-bordered" id="tb_productos">
                         <thead>
                             <tr>
                                 <th>
@@ -66,12 +66,12 @@
                                     <img src="@item.URLimagen" width="80">
                                     </td>
                                     <td>
-                                    @Html.ActionLink("Editar", "EditarProducto", "Productos", new { id=item.IdInventario }, new{ @class="btn btn-primary" } )
+                                    @Html.ActionLink("Editar", "EditarProducto", "Productos", new { id=item.IdInventario }, new{ @class="btn btn-secondary" } )
                                     <br>
                                     <br>
                                     @using (Html.BeginForm("EliminarProducto", "Productos", new { id = item.IdInventario }))
                                     {
-                                        <input type="submit" value="Eliminar" class="btn btn-danger" />
+                                        <input type="submit" value="Eliminar" class="btn btn-warning" />
                                     }
 
                                     </td>
@@ -90,6 +90,9 @@
                 
     </div>
 
-
+    @section scripts
+    {
+    <script src="~/js/funcionesproductos.js"></script>
+    }
 
 

@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="~/css/jquery-ui.css">
     <link rel="stylesheet" href="~/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
-
+    <link href="~/datatables/datatables.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="~/css/aos.css">
 
@@ -105,9 +105,9 @@
                     <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
                         <h3 class="footer-heading mb-4">Accesos Rápidos</h3>
                         <ul class="list-unstyled">
-                            <li><a href="#">Inicio</a></li>
-                            <li><a href="#">Tienda</a></li>
-                            <li><a href="#">Contacto</a></li>
+                            <li><a href="@Url.Action("Index","Home")">Inicio</a></li>
+                            <li><a href="@Url.Action("MostrarProductos","Productos")">Tienda</a></li>
+                            <li><a href="@Url.Action("Contacto","Login")">Contacto</a></li>
                         </ul>
                     </div>
 
@@ -148,9 +148,9 @@
     <script src="~/js/owl.carousel.min.js"></script>
     <script src="~/js/jquery.magnific-popup.min.js"></script>
     <script src="~/js/aos.js"></script>
-
+    <script src="~/datatables/datatables.js"></script>
     <script src="~/js/main.js"></script>
-
+    @RenderSection("Scripts", false)
 </body>
 
 </html>
