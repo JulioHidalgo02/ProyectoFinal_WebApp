@@ -28,6 +28,8 @@ namespace ProyectoFinal_WebApp.Entities
 
         [DisplayName("Imagen")]
         public string URLimagen { get; set; } = String.Empty;
-        
+
+        public int CantComprar { get; set; } = 0;
+
     }
 }

@@ -1,0 +1,86 @@
+﻿@model IEnumerable<ProyectoFinal_WebApp.Entities.VentasObj>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "MostrarVentas";
+}
+
+
+
+<div class="form-horizontal">
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-1"></div>
+            <div class="col-10">
+                <div class="table-responsive-sg">
+                    <table class="table table-striped table-bordered" id="tb_productos">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.IdFactura)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nombre)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Correo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Telefono)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fecha)
+                                </th>
+                                <th>
+
+                                    @Html.DisplayNameFor(model => model.Total)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdFactura)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nombre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Correo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Telefono)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fecha)
+                                    </td>
+                                    <td>
+                                        ₡ @Html.DisplayFor(modelItem => item.Total)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-1"></div>
+        </div>
+
+    </div>
+
+
+</div>
+
+@section scripts
+    {
+    <script src="~/js/funcionesproductos.js"></script>
+    }
+
+
+
+

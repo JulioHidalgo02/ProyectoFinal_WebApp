@@ -1,0 +1,103 @@
+﻿@model IEnumerable< ProyectoFinal_WebApp.Entities.FacturaObj>
+@{
+    decimal total = 0;
+    ViewData["Title"] = "AgregarAlCarrito";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @foreach (var item in Model)
+    {
+        
+        total = total + @item.TOTAL_LINEA;
+
+    }
+
+}
+
+<div class="site-section">
+    <div class="container">
+        <div class="row mb-5">
+            <form class="col-md-12" method="post">
+                <div class="site-blocks-table">
+                    <table class="table table-bordered" id="tbDetalle">
+                        <thead>
+                            <tr>
+                                <th class="product-name">Producto</th>
+                                <th class="product-price">Precio</th>
+                                <th class="product-quantity">Cantidad</th>
+                                <th class="product-total">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td class="product-name">
+                                        <h2 class="h5 text-black">@item.Producto</h2>
+                                    </td>
+                                    <td>@item.Precio</td>
+                                    <td>
+                                        @item.CANTCOMPRADA
+                                    </td>
+                                    <td>₡@(item.CANTCOMPRADA * item.Precio)</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row mb-5">
+                    
+                        <div class="col-md-6 mb-3 mb-md-0">
+                        @using (Html.BeginForm("VaciarCarrito", "Carrito", FormMethod.Post))
+                        {
+                            <input type="submit" class="btn btn-warning btn-md btn-block" value="Vaciar Carrito">
+                        }
+                        </div>
+                    
+
+
+                    <div class="col-md-6">
+                        <a href="@Url.Action("MostrarProductos","Productos")" class="btn btn-secondary btn-md btn-block">Continuar Comprando</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 pl-5">
+                <div class="row justify-content-end">
+                    <div class="col-md-7">
+                        <div class="row">
+                            <div class="col-md-12 text-right border-bottom mb-5">
+                                <h3 class="text-black h4 text-uppercase">Total</h3>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-6">
+                                <span class="text-black">Total</span>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                    <strong class="text-black">₡ @total </strong>                       
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a class="btn btn-primary btn-lg btn-block" href="@Url.Action("CheckOut","Carrito")">
+                                    Pagar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+    </script>
+}

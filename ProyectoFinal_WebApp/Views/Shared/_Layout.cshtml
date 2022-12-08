@@ -48,6 +48,7 @@
                                 <li ><a href="@Url.Action("Index","Home")">Inicio</a></li>
                                 @if(int.Parse(rol) == 1){
                                     <li><a href="@Url.Action("AdminProductos","Productos")">Inventario</a></li>
+                                    <li><a href="@Url.Action("MostrarVentas","Ventas")">Ventas</a></li>
                                 }
                                 
                                 <li><a href="@Url.Action("MostrarProductos","Productos")">Tienda</a></li>
@@ -65,7 +66,7 @@
                     </div>
                     <div class="icons">
                         
-                        <a href="cart.html" class="icons-btn d-inline-block bag">
+                        <a href="@Url.Action("AgregarAlCarrito","Carrito")" class="icons-btn d-inline-block bag">
                             <span class="icon-shopping-bag"></span>
                             <span class="number"></span>
                         </a>

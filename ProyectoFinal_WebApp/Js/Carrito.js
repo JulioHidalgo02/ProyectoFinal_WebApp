@@ -1,1 +1,1 @@
-﻿const Clickbutton = document.querySelectorAll(".button")
+﻿

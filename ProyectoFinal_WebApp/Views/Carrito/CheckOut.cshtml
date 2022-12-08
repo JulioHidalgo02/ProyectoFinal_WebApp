@@ -1,0 +1,111 @@
+﻿@model ProyectoFinal_WebApp.Entities.UsuarioObj2
+@{
+    decimal total = 0;
+    ViewData["Title"] = "CheckOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @foreach (var item in Model.listaCarrito)
+    {
+
+        total = total + @item.TOTAL_LINEA;
+
+    }
+}
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-5 mb-md-0">
+                <h2 class="h3 mb-3 text-black">Detalles de Pago</h2>
+                <div class="p-3 p-lg-5 border">
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="c_address" class="text-black">Nombre </label>
+                            <input type="text" class="form-control" id="c_address" name="c_address" value="@Model.Nombre">
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-5">
+                        <div class="col-md-6">
+                            <label for="c_email_address" class="text-black">Correo Electrónico</label>
+                            <input type="text" class="form-control" id="c_email_address" name="c_email_address" value="@Model.Correo">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="c_phone" class="text-black">Teléfono</label>
+                            <input type="text" class="form-control" id="c_phone" name="c_phone" value="@Model.Telefono">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="c_address" class="text-black">Dirección </label>
+                            <input type="text" class="form-control" id="c_address" name="c_address" value="@Model.Direccion">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+
+                <div class="row mb-5">
+                    <div class="col-md-12">
+                        <h2 class="h3 mb-3 text-black">Orden</h2>
+                        <div class="p-3 p-lg-5 border">
+                            <table class="table site-block-order-table mb-5">
+                                <thead>
+                                <th>Producto</th>
+                                <th>Total</th>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.listaCarrito)
+                                    {
+                                        <tr>
+
+                                            <td>@item.Producto <strong class="mx-2">x</strong> @item.CANTCOMPRADA</td>
+                                            <td>₡@(item.CANTCOMPRADA * item.Precio)</td>
+                                        </tr>
+                                    }
+                                    <tr>
+
+                                        <td class="text-black font-weight-bold"><strong>Total Orden</strong></td>
+                                        <td class="text-black font-weight-bold">
+                                            <strong>
+                                                ₡@total
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="border mb-3">
+                                <h3 class="h6 mb-0">
+                                    <a class="d-block" data-toggle="collapse" href="#collapsebank" role="button"
+                                       aria-expanded="false" aria-controls="collapsebank">Sinpe Móvil</a>
+                                </h3>
+
+                                <div class="collapse" id="collapsebank">
+                                    <div class="py-2 px-4">
+                                        <p class="mb-0">
+                                            Realice el sinpe movil al 8678-4335 y envíe el comprobante a Whatsapp para enviar su orden!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @using (Html.BeginForm("CrearFactura", "Carrito", FormMethod.Post))
+                                {
+                                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Realizar Orden" />
+                                }
+                                
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- </form> -->
+    </div>
+</div>
+

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProyectoFinal_WebApp.Entities;
 using ProyectoFinal_WebApp.Models;
+using System.Text.Json;
 
 namespace ProyectoFinal_WebApp.Controllers
 {
@@ -27,10 +28,16 @@ namespace ProyectoFinal_WebApp.Controllers
 
             if(respuesta != null)
             {
+                var carrito = new List<FacturaObj>();
+                var contenido = JsonSerializer.Serialize(carrito);
 
+                HttpContext.Session.SetString("DatosCarrito", contenido);
                 HttpContext.Session.SetString("RolUsuario", respuesta.IdRol.ToString());
                 HttpContext.Session.SetString("Cedula", respuesta.Cedula);
                 HttpContext.Session.SetString("NombreUsuario", respuesta.Nombre + " " + respuesta.PApellido);
+                HttpContext.Session.SetString("Correo", respuesta.Correo);
+                HttpContext.Session.SetString("Telefono", respuesta.Telefono);
+                HttpContext.Session.SetString("Direccion", respuesta.Direccion);
                 return RedirectToAction("Index", "Home");
                 
 
