@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Newtonsoft.Json
+@using ProyectoFinal_WebApp.Entities
+@{
     var nombreUsuario = Context.Session.GetString("NombreUsuario");
     var rol = Context.Session.GetString("RolUsuario");
 }
@@ -68,7 +70,6 @@
                         
                         <a href="@Url.Action("AgregarAlCarrito","Carrito")" class="icons-btn d-inline-block bag">
                             <span class="icon-shopping-bag"></span>
-                            <span class="number"></span>
                         </a>
                         <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
                             <span class="icon-menu"></span>
