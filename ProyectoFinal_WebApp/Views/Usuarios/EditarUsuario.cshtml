@@ -1,0 +1,71 @@
+﻿@model ProyectoFinal_WebApp.Entities.UsuarioObj
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "ConsultarUsuario";
+}
+
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="h3 mb-5 text-black">Perfil</h2>
+            </div>
+
+            <div class="col-md-12">
+                @using (Html.BeginForm("EditarUsuario", "Usuarios", FormMethod.Post))
+                {
+                    <div class="p-3 p-lg-5 border">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label for="c_address" class="text-black">Nombre </label>
+                                @Html.HiddenFor(m => m.Cedula)
+                                @Html.TextBoxFor(m => m.Nombre, new {@class="form-control", required="required"})
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label for="c_address" class="text-black">Primer Apellido </label>
+                                @Html.TextBoxFor(m => m.PApellido, new {@class="form-control", required="required"})
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label for="c_address" class="text-black">Segundo Apellido </label>
+                                @Html.TextBoxFor(m => m.SApellido, new {@class="form-control", required="required"})
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label for="c_address" class="text-black">Correo </label>
+                                @Html.TextBoxFor(m => m.Correo, new {@class="form-control", required="required"})
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label for="c_address" class="text-black"> Telefono</label>
+                                @Html.TextBoxFor(m => m.Telefono, new {@class="form-control", required="required"})
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <label for="c_address" class="text-black">Direccion </label>
+                                @Html.TextBoxFor(m => m.Direccion, new {@class="form-control", required="required"})
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <input type="submit" class="btn btn-primary" value="Editar Perfil">
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+

@@ -27,5 +27,28 @@ namespace ProyectoFinal_WebApp.Models
                 }              
             }
         }
+        public int EditarUsuario(UsuarioObj usuario, IConfiguration stringConnection)
+        {
+            string ruta = stringConnection.GetSection("ConnectionStrings:UrlApi").Value;
+            using (var client = new HttpClient())
+            {
+
+                JsonContent body = JsonContent.Create(usuario);
+
+                string metodo = "Mantenimiento/EditarUsuario";
+                HttpResponseMessage respuesta = client.PostAsync(ruta + metodo, body).Result;
+
+                if (respuesta.IsSuccessStatusCode)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+
+
+            }
+        }
     }
 }
