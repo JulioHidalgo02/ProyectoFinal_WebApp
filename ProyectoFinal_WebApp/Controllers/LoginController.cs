@@ -24,29 +24,37 @@ namespace ProyectoFinal_WebApp.Controllers
         [HttpPost]
         public IActionResult Login(LoginObj usuario )
         {
-            var respuesta = model.ValidarUsuario(usuario, _configuration);
-
-            if(respuesta != null)
+            try
             {
-                var carrito = new List<FacturaObj>();
-                var contenido = JsonSerializer.Serialize(carrito);
+                var respuesta = model.ValidarUsuario(usuario, _configuration);
 
-                HttpContext.Session.SetString("DatosCarrito", contenido);
-                HttpContext.Session.SetString("RolUsuario", respuesta.IdRol.ToString());
-                HttpContext.Session.SetString("Cedula", respuesta.Cedula);
-                HttpContext.Session.SetString("NombreUsuario", respuesta.Nombre + " " + respuesta.PApellido);
-                HttpContext.Session.SetString("Correo", respuesta.Correo);
-                HttpContext.Session.SetString("Telefono", respuesta.Telefono);
-                HttpContext.Session.SetString("Direccion", respuesta.Direccion);
-                return RedirectToAction("Index", "Home");
-                
+                if (respuesta != null)
+                {
+                    var carrito = new List<FacturaObj>();
+                    var contenido = JsonSerializer.Serialize(carrito);
 
+                    HttpContext.Session.SetString("DatosCarrito", contenido);
+                    HttpContext.Session.SetString("RolUsuario", respuesta.IdRol.ToString());
+                    HttpContext.Session.SetString("Cedula", respuesta.Cedula);
+                    HttpContext.Session.SetString("NombreUsuario", respuesta.Nombre + " " + respuesta.PApellido);
+                    HttpContext.Session.SetString("Correo", respuesta.Correo);
+                    HttpContext.Session.SetString("Telefono", respuesta.Telefono);
+                    HttpContext.Session.SetString("Direccion", respuesta.Direccion);
+                    return RedirectToAction("Index", "Home");
+
+
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch (Exception e)
             {
-                return View();
+                return BadRequest(e.Message);
             }
         }
+        
 
         [HttpGet]
         public IActionResult Registrarse()
@@ -57,16 +65,23 @@ namespace ProyectoFinal_WebApp.Controllers
         [HttpPost]
         public IActionResult Registrarse(LoginObj2 usuario)
         {
-            var respuesta = model.RegistrarUsuario(usuario, _configuration);
-            if(respuesta == 1)
+            try
             {
-                return RedirectToAction("Login", "Login");
+                var respuesta = model.RegistrarUsuario(usuario, _configuration);
+                if (respuesta == 1)
+                {
+                    return RedirectToAction("Login", "Login");
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch (Exception e)
             {
-                return View();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
         [HttpGet]
@@ -78,16 +93,22 @@ namespace ProyectoFinal_WebApp.Controllers
         [HttpPost]
         public IActionResult OlvidoContrasena(LoginObj2 usuario)
         {
-            var respuesta = model.OlvidoContrasenia(usuario, _configuration);
-            if (respuesta == 1)
+            try
             {
-                return RedirectToAction("Login", "Login");
+                var respuesta = model.OlvidoContrasenia(usuario, _configuration);
+                if (respuesta == 1)
+                {
+                    return RedirectToAction("Login", "Login");
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch (Exception e)
             {
-                return View();
+                return BadRequest(e.Message);
             }
-
         }
 
         [HttpGet]
@@ -99,16 +120,22 @@ namespace ProyectoFinal_WebApp.Controllers
         [HttpPost]
         public IActionResult Contacto(Contacto contacto)
         {
-            var respuesta = model.RegistrarContacto(contacto, _configuration);
-            if (respuesta == 1)
+            try
             {
-                return RedirectToAction("Index", "Home");
+                var respuesta = model.RegistrarContacto(contacto, _configuration);
+                if (respuesta == 1)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return View();
+                }
             }
-            else
+            catch (Exception e)
             {
-                return View();
+                return BadRequest(e.Message);
             }
-
         }
 
         [HttpGet]

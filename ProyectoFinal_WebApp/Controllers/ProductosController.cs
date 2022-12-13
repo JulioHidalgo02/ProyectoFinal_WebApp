@@ -33,15 +33,29 @@ namespace ProyectoFinal_WebApp.Controllers
         [HttpGet]
         public IActionResult MostrarProductos()
         {
-            var resultado = productosM.MostrarProductos(_configuration);
-            return View(resultado);
+            try
+            {
+                var resultado = productosM.MostrarProductos(_configuration);
+                return View(resultado);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpGet]
         public IActionResult AdminProductos()
         {
-            var resultado = productosM.MostrarProductos(_configuration);
-            return View(resultado);
+            try
+            {
+                var resultado = productosM.MostrarProductos(_configuration);
+                return View(resultado);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpGet]
@@ -54,71 +68,91 @@ namespace ProyectoFinal_WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> AgregarProducto(IFormFile imagen, ProductoObj producto)
         {
-            string nombreImagen = imagen.FileName;
-            string path = await this.helperUpload.UploadFilesAsync(imagen, nombreImagen, Folders.Images);
-            path = "/images/" + nombreImagen;
-            producto.URL = path;
-
-            var resultado = productosM.AgregarProducto(producto, _configuration);
-
-            if (resultado == 1)
+            try
             {
-                return RedirectToAction("AdminProductos", "Productos");
+                string nombreImagen = imagen.FileName;
+                string path = await this.helperUpload.UploadFilesAsync(imagen, nombreImagen, Folders.Images);
+                path = "/images/" + nombreImagen;
+                producto.URL = path;
+
+                var resultado = productosM.AgregarProducto(producto, _configuration);
+
+                if (resultado == 1)
+                {
+                    return RedirectToAction("AdminProductos", "Productos");
+                }
+                else
+                {
+                    return RedirectToAction("AgregarProducto", "Productos");
+                }
             }
-            else
+            catch (Exception e)
             {
-                return RedirectToAction("AgregarProducto", "Productos");
+                return BadRequest(e.Message);
             }
-            
-           
+
         }
 
         [HttpGet]
         public IActionResult EditarProducto(int id)
         {
-            ProductoObj2 producto = new ProductoObj2();
-            producto.IdInventario = id;
-            var resultado = productosM.MostrarProducto(producto, _configuration);
+            try
+            {
+                ProductoObj2 producto = new ProductoObj2();
+                producto.IdInventario = id;
+                var resultado = productosM.MostrarProducto(producto, _configuration);
 
 
-            return View(resultado);
-
+                return View(resultado);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]
         public IActionResult EditarProducto(ProductoObj2 producto)
         {
-
-
-            var resultado = productosM.EditarProducto(producto,_configuration);
-            if(resultado == 1)
+            try
             {
-                return RedirectToAction("AdminProductos", "Productos");
+                var resultado = productosM.EditarProducto(producto, _configuration);
+                if (resultado == 1)
+                {
+                    return RedirectToAction("AdminProductos", "Productos");
+                }
+                else
+                {
+                    return RedirectToAction("EditarProducto", "Productos");
+                }
             }
-            else
+            catch (Exception e)
             {
-                return RedirectToAction("EditarProducto", "Productos");
+                return BadRequest(e.Message);
             }
-            
-
         }
 
         [HttpPost]
         public IActionResult EliminarProducto(int id)
         {
-
-            ProductoObj2 producto = new ProductoObj2();
-            producto.IdInventario = id;
-            var resultado = productosM.EliminarProducto(producto, _configuration);
-            if (resultado == 1)
+            try
             {
-                return RedirectToAction("AdminProductos", "Productos");
+                ProductoObj2 producto = new ProductoObj2();
+                producto.IdInventario = id;
+                var resultado = productosM.EliminarProducto(producto, _configuration);
+                if (resultado == 1)
+                {
+                    return RedirectToAction("AdminProductos", "Productos");
+                }
+                else
+                {
+                    return RedirectToAction("AdminProductos", "Productos");
+                }
             }
-            else
+            catch (Exception e)
             {
-                return RedirectToAction("AdminProductos", "Productos");
+                return BadRequest(e.Message);
             }
-
 
         }
 
@@ -126,10 +160,17 @@ namespace ProyectoFinal_WebApp.Controllers
         [HttpGet]
         public IActionResult MostrarProductoIndividual(int id)
         {
-            ProductoObj2 producto = new ProductoObj2();
-            producto.IdInventario = id;
-            var resultado = productosM.MostrarProducto(producto, _configuration);
-            return View(resultado);
+            try
+            {
+                ProductoObj2 producto = new ProductoObj2();
+                producto.IdInventario = id;
+                var resultado = productosM.MostrarProducto(producto, _configuration);
+                return View(resultado);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
     }

@@ -14,8 +14,15 @@ namespace ProyectoFinal_WebApp.Controllers
         }
         public IActionResult MostrarVentas()
         {
-            var resultado = model.MostrarVentas(_configuration);
-            return View(resultado);
+            try
+            {
+                var resultado = model.MostrarVentas(_configuration);
+                return View(resultado);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

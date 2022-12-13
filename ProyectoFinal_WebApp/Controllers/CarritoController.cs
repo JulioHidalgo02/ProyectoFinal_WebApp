@@ -19,59 +19,74 @@ namespace ProyectoFinal_WebApp.Controllers
         [HttpGet]
         public IActionResult AgregarAlCarrito()
         {
-            var carritoActual = HttpContext.Session.GetString("DatosCarrito");
-            var contenido = JsonSerializer.Deserialize<List<FacturaObj>>(carritoActual);
+            try
+            {
+                var carritoActual = HttpContext.Session.GetString("DatosCarrito");
+                var contenido = JsonSerializer.Deserialize<List<FacturaObj>>(carritoActual);
 
-            return View(contenido);
+                return View(contenido);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         [HttpPost]
         public IActionResult AgregarAlCarrito(ProductoObj2 producto)
         {
-            FacturaObj obj = new FacturaObj();
-            obj.Producto = producto.NombreProducto;
-            obj.Precio = producto.Precio;
-            obj.CANTCOMPRADA = producto.CantComprar;
-            obj.IDPRODUCTO = producto.IdInventario;
-            obj.TOTAL_LINEA = (producto.Precio * producto.CantComprar);
-            var carritoActual = HttpContext.Session.GetString("DatosCarrito");
-            var contenido = JsonSerializer.Deserialize<List<FacturaObj>>(carritoActual);
-            obj.IDUSUARIO = HttpContext.Session.GetString("Cedula");
-            if(contenido.Count < 1)
+            try
             {
-                contenido.Add(new FacturaObj { CANTCOMPRADA = obj.CANTCOMPRADA, IDPRODUCTO = obj.IDPRODUCTO, IDUSUARIO = obj.IDUSUARIO, Producto = obj.Producto, Precio = obj.Precio, TOTAL_LINEA = obj.TOTAL_LINEA });
-            }else if (contenido.Count >= 1)
-            {
-                if(contenido.Last().Producto == obj.Producto)
-                {
-                    foreach (var item in contenido/*.Where(x => x.IDPRODUCTO == obj.IDPRODUCTO)*/)
-                    {
-                        if (item.IDPRODUCTO == obj.IDPRODUCTO)
-                        {
-                            item.CANTCOMPRADA = item.CANTCOMPRADA + obj.CANTCOMPRADA;
-                            item.TOTAL_LINEA = (item.CANTCOMPRADA * item.Precio);
-                        }
-                    }
-                }
-                else
+                FacturaObj obj = new FacturaObj();
+                obj.Producto = producto.NombreProducto;
+                obj.Precio = producto.Precio;
+                obj.CANTCOMPRADA = producto.CantComprar;
+                obj.IDPRODUCTO = producto.IdInventario;
+                obj.TOTAL_LINEA = (producto.Precio * producto.CantComprar);
+                var carritoActual = HttpContext.Session.GetString("DatosCarrito");
+                var contenido = JsonSerializer.Deserialize<List<FacturaObj>>(carritoActual);
+                obj.IDUSUARIO = HttpContext.Session.GetString("Cedula");
+                if (contenido.Count < 1)
                 {
                     contenido.Add(new FacturaObj { CANTCOMPRADA = obj.CANTCOMPRADA, IDPRODUCTO = obj.IDPRODUCTO, IDUSUARIO = obj.IDUSUARIO, Producto = obj.Producto, Precio = obj.Precio, TOTAL_LINEA = obj.TOTAL_LINEA });
                 }
-                
+                else if (contenido.Count >= 1)
+                {
+                    if (contenido.Last().Producto == obj.Producto)
+                    {
+                        foreach (var item in contenido/*.Where(x => x.IDPRODUCTO == obj.IDPRODUCTO)*/)
+                        {
+                            if (item.IDPRODUCTO == obj.IDPRODUCTO)
+                            {
+                                item.CANTCOMPRADA = item.CANTCOMPRADA + obj.CANTCOMPRADA;
+                                item.TOTAL_LINEA = (item.CANTCOMPRADA * item.Precio);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        contenido.Add(new FacturaObj { CANTCOMPRADA = obj.CANTCOMPRADA, IDPRODUCTO = obj.IDPRODUCTO, IDUSUARIO = obj.IDUSUARIO, Producto = obj.Producto, Precio = obj.Precio, TOTAL_LINEA = obj.TOTAL_LINEA });
+                    }
+
+                }
+
+
+                var contenidoNuevo = JsonSerializer.Serialize(contenido);
+                HttpContext.Session.SetString("DatosCarrito", contenidoNuevo);
+                carritoActual = HttpContext.Session.GetString("DatosCarrito");
+                contenido = JsonSerializer.Deserialize<List<FacturaObj>>(carritoActual);
+                return View(contenido);
             }
-            
-            
-            var contenidoNuevo = JsonSerializer.Serialize(contenido);
-            HttpContext.Session.SetString("DatosCarrito", contenidoNuevo);
-            carritoActual = HttpContext.Session.GetString("DatosCarrito");
-            contenido = JsonSerializer.Deserialize<List<FacturaObj>>(carritoActual);
-            return View(contenido);
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
 
         }
-            [HttpPost]
-            public IActionResult VaciarCarrito(ProductoObj2 producto)
+        [HttpPost]
+        public IActionResult VaciarCarrito(ProductoObj2 producto)
+        {
+            try
             {
-
-
                 HttpContext.Session.Remove("DatosCarrito");
                 var carrito = new List<FacturaObj>();
                 var contenido = JsonSerializer.Serialize(carrito);
@@ -80,10 +95,18 @@ namespace ProyectoFinal_WebApp.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-
-            [HttpGet]
-            public IActionResult CheckOut()
+            catch (Exception e)
             {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult CheckOut()
+        {
+            try
+            {
+
                 UsuarioObj2 usuario = new UsuarioObj2();
                 var Nombre = HttpContext.Session.GetString("NombreUsuario");
                 var Correo = HttpContext.Session.GetString("Correo");
@@ -98,11 +121,17 @@ namespace ProyectoFinal_WebApp.Controllers
                 usuario.Direccion = Direccion;
                 usuario.listaCarrito = contenido;
                 return View(usuario);
-
             }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
-            [HttpPost]
-            public IActionResult CrearFactura()
+        [HttpPost]
+        public IActionResult CrearFactura()
+        {
+            try
             {
                 FacturaObj factura = new FacturaObj();
                 var Cedula = HttpContext.Session.GetString("Cedula");
@@ -119,17 +148,21 @@ namespace ProyectoFinal_WebApp.Controllers
                 var NuevoCarrito = JsonSerializer.Serialize(carrito);
                 HttpContext.Session.SetString("DatosCarrito", NuevoCarrito);
                 return RedirectToAction("Agradecimiento", "Carrito");
-
             }
-
-            [HttpGet]
-            public IActionResult Agradecimiento()
+            catch (Exception e)
             {
-
-                return View();
-
+                return BadRequest(e.Message);
             }
+        }
 
+        [HttpGet]
+        public IActionResult Agradecimiento()
+        {
+
+            return View();
 
         }
+
+
     }
+}
